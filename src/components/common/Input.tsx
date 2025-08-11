@@ -22,13 +22,6 @@ export const Input: React.FC<InputProps> = ({
     style,
   ];
 
-  // 텍스트 스타일 조합
-  const textStyleCombined = [
-    styles.text,
-    error && styles.errorText,
-    textStyle,
-  ];
-
   return (
     <TextInput
       style={inputStyle}
@@ -50,19 +43,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.primary,
   },
   
-  // 기본 텍스트 스타일
-  text: {
-    fontSize: 16,
-    color: colors.text.primary,
-  },
-  
   // 오류 상태 스타일
   error: {
     borderColor: colors.danger,
-  },
-  
-  // 오류 상태 텍스트 스타일
-  errorText: {
-    color: colors.danger,
   },
 });

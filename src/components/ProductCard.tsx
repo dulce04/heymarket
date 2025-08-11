@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Item } from '../types';
 import { formatPrice, formatDate, formatLocation } from '../utils/format';
 
@@ -8,8 +8,6 @@ interface ProductCardProps {
   onPress: (item: Item) => void;
   onLike: (itemId: string) => void;
 }
-
-const { width } = Dimensions.get('window');
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   item, 

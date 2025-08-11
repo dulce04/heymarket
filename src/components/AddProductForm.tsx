@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   Alert,
-  Dimensions,
 } from 'react-native';
 import { Item, Category, Condition } from '../types';
 import { categories, conditions } from '../utils/dummyData';
@@ -19,8 +18,6 @@ interface AddProductFormProps {
   onSubmit: (item: Omit<Item, 'id' | 'createdAt' | 'updatedAt' | 'seller' | 'likes' | 'views'>) => void;
   onCancel: () => void;
 }
-
-const { width } = Dimensions.get('window');
 
 export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({

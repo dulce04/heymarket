@@ -16,7 +16,7 @@ import { Button } from './src/components/common/Button';
 import { Item } from './src/types';
 import { dummyItems, dummyUser } from './src/utils/dummyData';
 import { colors } from './src/utils/colors';
-import { commonStyles, cardStyles } from './src/utils/styles';
+import { commonStyles } from './src/utils/styles';
 
 export default function App() {
   const [items, setItems] = useState<Item[]>(dummyItems);

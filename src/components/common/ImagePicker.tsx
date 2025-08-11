@@ -6,7 +6,6 @@ import {
   Image,
   StyleSheet,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../utils/colors';
@@ -20,8 +19,6 @@ interface ImagePickerProps {
   aspect?: [number, number];
   quality?: number;
 }
-
-const { width } = Dimensions.get('window');
 
 export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
   images,

@@ -45,9 +45,3 @@ export const colors = {
     light: 'rgba(255, 255, 255, 0.9)',
   },
 } as const;
-
-// 색상 타입 정의
-export type ColorKey = keyof typeof colors;
-export type TextColorKey = keyof typeof colors.text;
-export type BackgroundColorKey = keyof typeof colors.background;
-export type BorderColorKey = keyof typeof colors.border;
