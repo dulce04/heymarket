@@ -24,10 +24,3 @@ Heymarket는 React Native와 Expo를 기반으로 개발된 중고거래 모바�
 - **Expo 53.0.20**: React Native 개발 환경 및 도구
 - **TypeScript 5.8.3**: 타입 안전성과 개발 생산성 향상
 
-### 이미지 처리
-- **expo-image-picker**: 카메라 및 갤러리에서 이미지 선택
-- 모든 기여자들
-
----
-
-⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!
