@@ -123,6 +123,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ item, onBack }) => {
       {/* 입력 섹션 */}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 0}
         style={styles.inputContainer}
       >
         <View style={styles.inputWrapper}>
