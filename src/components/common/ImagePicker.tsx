@@ -9,6 +9,8 @@ import {
   Dimensions,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { colors } from '../../utils/colors';
+import { commonStyles } from '../../utils/styles';
 
 interface ImagePickerProps {
   images: string[];
@@ -29,6 +31,7 @@ export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
   aspect = [1, 1],
   quality = 0.8,
 }) => {
+  // 갤러리 접근 권한 요청
   const requestPermissions = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -38,6 +41,7 @@ export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
     return true;
   };
 
+  // 이미지 선택 처리
   const pickImage = async () => {
     const hasPermission = await requestPermissions();
     if (!hasPermission) return;
@@ -58,16 +62,20 @@ export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
     }
   };
 
+  // 이미지 제거 처리
   const removeImage = (index: number) => {
     onImagesChange(images.filter((_, i) => i !== index));
   };
 
   return (
     <View style={[styles.container, style]}>
+      {/* 이미지 그리드 */}
       <View style={styles.imageGrid}>
+        {/* 기존 이미지들 */}
         {images.map((image, index) => (
           <View key={index} style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
+            {/* 이미지 제거 버튼 */}
             <TouchableOpacity
               style={styles.removeImageButton}
               onPress={() => removeImage(index)}
@@ -76,6 +84,8 @@ export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
             </TouchableOpacity>
           </View>
         ))}
+        
+        {/* 이미지 추가 버튼 */}
         {images.length < maxImages && (
           <TouchableOpacity style={styles.addImageButton} onPress={pickImage}>
             <Text style={styles.addImageText}>📷</Text>
@@ -88,55 +98,71 @@ export const ImagePickerComponent: React.FC<ImagePickerProps> = ({
 };
 
 const styles = StyleSheet.create({
+  // 컨테이너 스타일
   container: {
     width: '100%',
   },
+  
+  // 이미지 그리드 스타일
   imageGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: commonStyles.gap.medium,
   },
+  
+  // 이미지 컨테이너 스타일
   imageContainer: {
     position: 'relative',
   },
+  
+  // 이미지 스타일
   image: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    borderRadius: commonStyles.borderRadius.medium,
   },
+  
+  // 이미지 제거 버튼 스타일
   removeImageButton: {
     position: 'absolute',
-    top: -8,
-    right: -8,
-    backgroundColor: '#ef4444',
+    top: -commonStyles.margin.small,
+    right: -commonStyles.margin.small,
+    backgroundColor: colors.danger,
     width: 24,
     height: 24,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  
+  // 이미지 제거 버튼 텍스트 스타일
   removeImageText: {
-    color: '#fff',
+    color: colors.text.inverse,
     fontSize: 16,
     fontWeight: 'bold',
   },
+  
+  // 이미지 추가 버튼 스타일
   addImageButton: {
     width: 80,
     height: 80,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#d1d5db',
+    borderRadius: commonStyles.borderRadius.medium,
+    ...commonStyles.border.medium,
     borderStyle: 'dashed',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.tertiary,
   },
+  
+  // 이미지 추가 버튼 텍스트 스타일
   addImageText: {
     fontSize: 24,
     marginBottom: 4,
   },
+  
+  // 이미지 추가 버튼 라벨 스타일
   addImageLabel: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
 });

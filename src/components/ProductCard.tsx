@@ -22,22 +22,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onPress={() => onPress(item)}
       activeOpacity={0.8}
     >
+      {/* 이미지 컨테이너 */}
       <View style={styles.imageContainer}>
         <Image 
           source={{ uri: item.images[0] }} 
           style={styles.image}
           resizeMode="cover"
         />
+        
+        {/* 판매 완료 오버레이 */}
         {item.isSold && (
           <View style={styles.soldOverlay}>
             <Text style={styles.soldText}>판매완료</Text>
           </View>
         )}
+        
+        {/* 예약중 오버레이 */}
         {item.isReserved && !item.isSold && (
           <View style={styles.reservedOverlay}>
             <Text style={styles.reservedText}>예약중</Text>
           </View>
         )}
+        
+        {/* 좋아요 버튼 */}
         <TouchableOpacity 
           style={styles.likeButton}
           onPress={() => onLike(item.id)}
@@ -46,11 +53,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </TouchableOpacity>
       </View>
       
+      {/* 상품 정보 컨테이너 */}
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text>
         
+        {/* 가격 정보 */}
         <View style={styles.priceContainer}>
           <Text style={styles.price}>{formatPrice(item.price)}</Text>
           {item.originalPrice && (
@@ -60,11 +69,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </View>
         
+        {/* 메타 정보 */}
         <View style={styles.metaContainer}>
           <Text style={styles.location}>{formatLocation(item.location)}</Text>
           <Text style={styles.date}>{formatDate(item.createdAt)}</Text>
         </View>
         
+        {/* 통계 정보 */}
         <View style={styles.statsContainer}>
           <Text style={styles.views}>조회 {item.views}</Text>
           <Text style={styles.likes}>관심 {item.likes}</Text>
@@ -189,17 +200,5 @@ const styles = StyleSheet.create({
   likes: {
     fontSize: 12,
     color: '#9ca3af',
-  },
-  chatButton: {
-    backgroundColor: '#f97316',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    alignSelf: 'flex-start',
-  },
-  chatButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
   },
 });

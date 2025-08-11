@@ -1,5 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { colors } from '../../utils/colors';
+import { commonStyles } from '../../utils/styles';
 
 interface ButtonProps {
   title: string;
@@ -20,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
 }) => {
+  // 버튼 스타일 조합
   const buttonStyle = [
     styles.base,
     styles[variant],
@@ -28,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     style,
   ];
 
+  // 텍스트 스타일 조합
   const textStyleCombined = [
     styles.text,
     styles[`${variant}Text`],
@@ -49,57 +53,60 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 const styles = StyleSheet.create({
+  // 기본 버튼 스타일
   base: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
+    borderRadius: commonStyles.borderRadius.medium,
   },
-  // Variants
+  
+  // 변형 스타일
   primary: {
-    backgroundColor: '#ff6b35',
+    backgroundColor: colors.primary,
   },
   secondary: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: colors.secondary,
   },
   outline: {
     backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#d1d5db',
+    ...commonStyles.border.medium,
   },
   danger: {
-    backgroundColor: '#ef4444',
+    backgroundColor: colors.danger,
   },
-  // Sizes
+  
+  // 크기별 스타일
   small: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+    paddingHorizontal: commonStyles.padding.medium,
+    paddingVertical: commonStyles.padding.small,
+    borderRadius: commonStyles.borderRadius.small,
   },
   medium: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingHorizontal: commonStyles.padding.medium,
+    paddingVertical: commonStyles.padding.medium,
+    borderRadius: commonStyles.borderRadius.medium,
   },
   large: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    borderRadius: 10,
+    paddingHorizontal: commonStyles.padding.large,
+    paddingVertical: commonStyles.padding.medium,
+    borderRadius: commonStyles.borderRadius.large,
   },
-  // Text styles
+  
+  // 텍스트 스타일
   text: {
     fontWeight: '600',
   },
   primaryText: {
-    color: '#fff',
+    color: colors.text.inverse,
   },
   secondaryText: {
-    color: '#fff',
+    color: colors.text.inverse,
   },
   outlineText: {
-    color: '#374151',
+    color: colors.text.secondary,
   },
   dangerText: {
-    color: '#fff',
+    color: colors.text.inverse,
   },
   smallText: {
     fontSize: 14,
@@ -110,11 +117,12 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 18,
   },
-  // States
+  
+  // 상태별 스타일
   disabled: {
     opacity: 0.5,
   },
   disabledText: {
-    color: '#9ca3af',
+    color: colors.text.disabled,
   },
 });

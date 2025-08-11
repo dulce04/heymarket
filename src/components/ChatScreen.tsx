@@ -47,7 +47,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ item, onBack }) => {
       setMessages([...messages, newMessage]);
       setInputText('');
       
-      // 자동 응답 (시뮬레이션)
+      // 자동 응답 시뮬레이션
       setTimeout(() => {
         const autoReply: Message = {
           id: (Date.now() + 1).toString(),
@@ -95,7 +95,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ item, onBack }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+      {/* 헤더 섹션 */}
       <View style={styles.header}>
         <Button
           title="← 뒤로"
@@ -110,7 +110,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ item, onBack }) => {
         </View>
       </View>
 
-      {/* Messages */}
+      {/* 메시지 목록 */}
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -120,7 +120,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ item, onBack }) => {
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Input */}
+      {/* 입력 섹션 */}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.inputContainer}
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     padding: 8,
     marginRight: 12,
   },
-
   headerInfo: {
     flex: 1,
   },
@@ -257,8 +256,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 20,
   },
-  sendButtonDisabled: {
-    backgroundColor: '#adb5bd',
-  },
-
 });

@@ -41,7 +41,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* 헤더 섹션 */}
       <View style={styles.header}>
         <Button
           title="← 뒤로"
@@ -69,7 +69,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Image Gallery */}
+        {/* 이미지 갤러리 */}
         <View style={styles.imageContainer}>
           {item.images && item.images.length > 0 ? (
             <Image
@@ -84,7 +84,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
           )}
         </View>
 
-        {/* Product Info */}
+        {/* 상품 정보 */}
         <View style={styles.productInfo}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.price}>{formatPrice(item.price)}</Text>
@@ -107,7 +107,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
           <Text style={styles.description}>{item.description}</Text>
         </View>
 
-        {/* Seller Info */}
+        {/* 판매자 정보 */}
         <View style={styles.sellerInfo}>
           <Text style={styles.sellerTitle}>판매자 정보</Text>
           <View style={styles.sellerDetails}>
@@ -116,7 +116,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
           </View>
         </View>
 
-        {/* Stats */}
+        {/* 통계 정보 */}
         <View style={styles.stats}>
           <View style={styles.statItem}>
             <Text style={styles.statValue}>{item.views}</Text>
@@ -133,7 +133,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
         </View>
       </ScrollView>
 
-      {/* Action Buttons */}
+      {/* 액션 버튼 */}
       <View style={styles.actionContainer}>
         <Button
           title="❤️ 좋아요"
@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 8,
   },
-
   headerActions: {
     flexDirection: 'row',
     gap: 12,
@@ -183,14 +182,12 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 8,
   },
-
   deleteButton: {
     backgroundColor: '#ef4444',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
   },
-
   content: {
     flex: 1,
   },
@@ -306,9 +303,7 @@ const styles = StyleSheet.create({
   likeButton: {
     flex: 1,
   },
-
   chatButton: {
     flex: 2,
   },
-
 });

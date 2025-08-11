@@ -15,6 +15,8 @@ import { ChatScreen } from './src/components/ChatScreen';
 import { Button } from './src/components/common/Button';
 import { Item } from './src/types';
 import { dummyItems, dummyUser } from './src/utils/dummyData';
+import { colors } from './src/utils/colors';
+import { commonStyles, cardStyles } from './src/utils/styles';
 
 export default function App() {
   const [items, setItems] = useState<Item[]>(dummyItems);
@@ -25,6 +27,7 @@ export default function App() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
 
+  // 새 상품 추가 처리
   const addItem = (itemData: Omit<Item, 'id' | 'createdAt' | 'updatedAt' | 'seller' | 'likes' | 'views'>) => {
     const newItem: Item = {
       ...itemData,
@@ -39,12 +42,14 @@ export default function App() {
     setShowAddForm(false);
   };
 
+  // 상품 삭제 처리
   const deleteItem = (itemId: string) => {
     setItems(items.filter(item => item.id !== itemId));
     setShowDetail(false);
     setSelectedItem(null);
   };
 
+  // 상품 수정 처리
   const updateItem = (itemId: string, updatedData: Partial<Item>) => {
     setItems(items.map(item => 
       item.id === itemId ? { ...item, ...updatedData } : item
@@ -54,17 +59,20 @@ export default function App() {
     setSelectedItem(null);
   };
 
+  // 상품 선택 처리
   const handleItemPress = (item: Item) => {
     setSelectedItem(item);
     setShowDetail(true);
   };
 
+  // 상품 수정 화면 표시
   const handleEdit = (item: Item) => {
     setSelectedItem(item);
     setShowDetail(false);
     setShowEdit(true);  
   };
 
+  // 채팅 화면 표시
   const handleChat = (item: Item) => {
     setSelectedItem(item);
     setShowDetail(false);
@@ -72,6 +80,7 @@ export default function App() {
     setShowChat(true);
   };
 
+  // 뒤로가기 처리
   const handleBack = () => {
     setShowDetail(false);
     setShowEdit(false);
@@ -79,6 +88,7 @@ export default function App() {
     setSelectedItem(null);
   };
 
+  // 좋아요 토글 처리
   const toggleLike = (itemId: string) => {
     const newLikedItems = new Set(likedItems);
     if (newLikedItems.has(itemId)) {
@@ -95,12 +105,11 @@ export default function App() {
     setLikedItems(newLikedItems);
   };
 
-
-
+  // 상품 등록 폼 화면
   if (showAddForm) {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
         <AddProductForm
           onSubmit={addItem}
           onCancel={() => setShowAddForm(false)}
@@ -109,10 +118,11 @@ export default function App() {
     );
   }
 
+  // 상품 상세 화면
   if (showDetail && selectedItem) {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
         <ProductDetail
           item={selectedItem}
           onBack={handleBack}
@@ -125,10 +135,11 @@ export default function App() {
     );
   }
 
+  // 상품 수정 화면
   if (showEdit && selectedItem) {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
         <EditProduct
           item={selectedItem}
           onSave={updateItem}
@@ -138,10 +149,11 @@ export default function App() {
     );
   }
 
+  // 채팅 화면
   if (showChat && selectedItem) {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
         <ChatScreen
           item={selectedItem}
           onBack={handleBack}
@@ -150,17 +162,18 @@ export default function App() {
     );
   }
 
+  // 메인 화면
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
       
-      {/* Header */}
+      {/* 헤더 섹션 */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>헤이마켓</Text>
         <Text style={styles.headerSubtitle}>당신 근처의 중고마켓</Text>
       </View>
 
-      {/* Action Buttons */}
+      {/* 액션 버튼 섹션 */}
       <View style={styles.actionContainer}>
         <Button
           title="상품 등록"
@@ -171,7 +184,7 @@ export default function App() {
         />
       </View>
 
-      {/* Product List */}
+      {/* 상품 목록 섹션 */}
       <ScrollView style={styles.productList} showsVerticalScrollIndicator={false}>
         {items.length === 0 ? (
           <View style={styles.emptyState}>
@@ -196,59 +209,40 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.secondary,
   },
   header: {
-    backgroundColor: '#fff',
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingHorizontal: 20,
+    backgroundColor: colors.background.primary,
+    paddingTop: commonStyles.padding.medium,
+    paddingBottom: commonStyles.padding.medium,
+    paddingHorizontal: commonStyles.padding.large,
+    ...commonStyles.border.light,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#ff6b35',
+    color: colors.primary,
     textAlign: 'center',
   },
   headerSubtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     textAlign: 'center',
     marginTop: 4,
   },
   actionContainer: {
     flexDirection: 'row',
-    padding: 20,
-    gap: 12,
+    padding: commonStyles.padding.large,
+    gap: commonStyles.gap.medium,
   },
   addButton: {
     flex: 1,
-    shadowColor: '#ff6b35',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-
-  filterButton: {
-    backgroundColor: '#fff',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
-  },
-  filterButtonText: {
-    color: '#374151',
-    fontSize: 16,
-    fontWeight: '600',
+    ...commonStyles.shadow.primary,
   },
   productList: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: commonStyles.padding.large,
   },
   emptyState: {
     alignItems: 'center',
@@ -256,11 +250,11 @@ const styles = StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 18,
-    color: '#6b7280',
-    marginBottom: 8,
+    color: colors.text.tertiary,
+    marginBottom: commonStyles.margin.small,
   },
   emptyStateSubtext: {
     fontSize: 14,
-    color: '#9ca3af',
+    color: colors.text.disabled,
   },
 });

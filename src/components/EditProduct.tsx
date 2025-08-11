@@ -72,27 +72,27 @@ export const EditProduct: React.FC<EditProductProps> = ({
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-                   {/* Header */}
-             <View style={styles.header}>
-               <Button
-                 title="취소"
-                 onPress={onCancel}
-                 variant="outline"
-                 size="small"
-                 style={styles.cancelButton}
-               />
-               <Text style={styles.headerTitle}>상품 수정</Text>
-               <Button
-                 title="저장"
-                 onPress={handleSave}
-                 variant="primary"
-                 size="small"
-                 style={styles.saveButton}
-               />
-             </View>
+      {/* 헤더 섹션 */}
+      <View style={styles.header}>
+        <Button
+          title="취소"
+          onPress={onCancel}
+          variant="outline"
+          size="small"
+          style={styles.cancelButton}
+        />
+        <Text style={styles.headerTitle}>상품 수정</Text>
+        <Button
+          title="저장"
+          onPress={handleSave}
+          variant="primary"
+          size="small"
+          style={styles.saveButton}
+        />
+      </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Image Section */}
+        {/* 이미지 섹션 */}
         <View style={styles.imageSection}>
           <Text style={styles.sectionTitle}>상품 이미지</Text>
           <ImagePickerComponent
@@ -102,7 +102,7 @@ export const EditProduct: React.FC<EditProductProps> = ({
           />
         </View>
 
-        {/* Basic Info */}
+        {/* 기본 정보 섹션 */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>기본 정보</Text>
           
@@ -140,7 +140,7 @@ export const EditProduct: React.FC<EditProductProps> = ({
           </View>
         </View>
 
-        {/* Category & Condition */}
+        {/* 카테고리 및 상태 섹션 */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>카테고리 및 상태</Text>
           
@@ -175,7 +175,7 @@ export const EditProduct: React.FC<EditProductProps> = ({
           </View>
         </View>
 
-        {/* Location */}
+        {/* 위치 섹션 */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>위치</Text>
           <View style={styles.inputGroup}>
@@ -210,10 +210,6 @@ const styles = StyleSheet.create({
   cancelButton: {
     padding: 8,
   },
-  cancelButtonText: {
-    fontSize: 16,
-    color: '#6b7280',
-  },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -224,11 +220,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
   },
   content: {
     flex: 1,
@@ -253,16 +244,6 @@ const styles = StyleSheet.create({
     color: '#374151',
     marginBottom: 8,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: '#111827',
-    backgroundColor: '#fff',
-  },
   textArea: {
     height: 100,
     textAlignVertical: 'top',
@@ -272,80 +253,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
-  pickerOption: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    backgroundColor: '#fff',
-  },
-  pickerOptionSelected: {
-    backgroundColor: '#ff6b35',
-    borderColor: '#ff6b35',
-  },
-  pickerOptionText: {
-    fontSize: 14,
-    color: '#374151',
-  },
-  pickerOptionTextSelected: {
-    color: '#fff',
-  },
   imageSection: {
     backgroundColor: '#fff',
     marginBottom: 12,
     padding: 20,
-  },
-  imageContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  imageWrapper: {
-    position: 'relative',
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-  },
-  removeImageButton: {
-    position: 'absolute',
-    top: -8,
-    right: -8,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#ef4444',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  removeImageText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  addImageContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  addImageButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#d1d5db',
-    borderStyle: 'dashed',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f9fafb',
-  },
-  addImageText: {
-    fontSize: 24,
-    marginBottom: 4,
-  },
-  addImageLabel: {
-    fontSize: 12,
-    color: '#6b7280',
   },
 });

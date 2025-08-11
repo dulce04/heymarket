@@ -12,6 +12,8 @@ import { categories, conditions } from '../utils/dummyData';
 import { Button } from './common/Button';
 import { Input } from './common/Input';
 import { ImagePickerComponent } from './common/ImagePicker';
+import { colors } from '../utils/colors';
+import { commonStyles, cardStyles } from '../utils/styles';
 
 interface AddProductFormProps {
   onSubmit: (item: Omit<Item, 'id' | 'createdAt' | 'updatedAt' | 'seller' | 'likes' | 'views'>) => void;
@@ -41,16 +43,19 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
   };
 
   const handleSubmit = () => {
+    // 필수 항목 검증
     if (!formData.title || !formData.price || !formData.description || !selectedCategory || !selectedCondition || !formData.location) {
       Alert.alert('입력 오류', '필수 항목을 모두 입력해주세요.');
       return;
     }
 
+    // 이미지 검증
     if (images.length === 0) {
       Alert.alert('이미지 오류', '최소 1개의 이미지를 추가해주세요.');
       return;
     }
 
+    // 가격 파싱 및 검증
     const price = parseInt(formData.price.replace(/[^0-9]/g, ''));
     const originalPrice = formData.originalPrice ? parseInt(formData.originalPrice.replace(/[^0-9]/g, '')) : undefined;
 
@@ -59,6 +64,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
       return;
     }
 
+    // 태그 파싱
     const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
 
     onSubmit({
@@ -80,7 +86,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>새 상품 등록</Text>
       
-      {/* 이미지 업로드 */}
+      {/* 이미지 업로드 섹션 */}
       <View style={styles.imageSection}>
         <Text style={styles.sectionTitle}>상품 이미지 *</Text>
         <ImagePickerComponent
@@ -91,12 +97,12 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         <Text style={styles.imageHint}>최대 5개까지 추가 가능</Text>
       </View>
 
-      {/* 기본 정보 */}
+      {/* 기본 정보 섹션 */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>기본 정보</Text>
         
         <Input
-          style={styles.Input}
+          style={styles.input}
           placeholder="상품명을 입력하세요 *"
           value={formData.title}
           onChangeText={(text: string) => setFormData({ ...formData, title: text })}
@@ -104,7 +110,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         
         <View>
           <Input
-            style={styles.Input}
+            style={styles.input}
             placeholder="판매가 *"
             value={formData.price}
             onChangeText={(text: string) => setFormData({ ...formData, price: text })}
@@ -119,7 +125,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         </View>
       </View>
 
-      {/* 카테고리 및 상태 */}
+      {/* 카테고리 및 상태 섹션 */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>카테고리 및 상태</Text>
         
@@ -152,12 +158,12 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         </View>
       </View>
 
-      {/* 위치 및 태그 */}
+      {/* 위치 및 태그 섹션 */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>위치 및 태그</Text>
         
         <Input
-          style={styles.Input}
+          style={styles.input}
           placeholder="거래 지역 (예: 서울 강남구) *"
           value={formData.location}
           onChangeText={(text: string) => setFormData({ ...formData, location: text })}
@@ -170,7 +176,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         />
       </View>
 
-      {/* 상품 설명 */}
+      {/* 상품 설명 섹션 */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>상품 설명</Text>
         
@@ -185,7 +191,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         />
       </View>
 
-      {/* 버튼 */}
+      {/* 액션 버튼 */}
       <View style={styles.buttonContainer}>
         <Button
           title="취소"
@@ -207,57 +213,35 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.secondary,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.text.primary,
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: commonStyles.margin.large,
   },
   section: {
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    ...cardStyles.container,
+    marginHorizontal: commonStyles.margin.medium,
   },
   imageSection: {
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    ...cardStyles.imageContainer,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
-    marginBottom: 16,
+    color: colors.text.primary,
+    marginBottom: commonStyles.margin.medium,
   },
-
   imageHint: {
     fontSize: 12,
-    color: '#9ca3af',
-    marginTop: 8,
+    color: colors.text.disabled,
+    marginTop: commonStyles.margin.small,
   },
-  row: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  Input: {
-    marginBottom: 12,
+  input: {
+    marginBottom: commonStyles.margin.medium,
   },
   textArea: {
     height: 120,
@@ -266,30 +250,30 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#374151',
-    marginBottom: 8,
+    color: colors.text.secondary,
+    marginBottom: commonStyles.margin.small,
   },
   categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
-    marginBottom: 16,
+    gap: commonStyles.gap.medium,
+    marginBottom: commonStyles.margin.medium,
   },
   categoryButton: {
-    marginBottom: 8,
+    marginBottom: commonStyles.margin.small,
   },
   conditionGrid: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
+    gap: commonStyles.gap.medium,
+    marginBottom: commonStyles.margin.medium,
   },
   conditionButton: {
     flex: 1,
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 12,
-    marginHorizontal: 16,
+    gap: commonStyles.gap.medium,
+    marginHorizontal: commonStyles.margin.medium,
     marginBottom: 32,
   },
   cancelButton: {
