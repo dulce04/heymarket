@@ -96,21 +96,21 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         <Text style={styles.sectionTitle}>기본 정보</Text>
         
         <Input
+          style={styles.Input}
           placeholder="상품명을 입력하세요 *"
           value={formData.title}
           onChangeText={(text: string) => setFormData({ ...formData, title: text })}
         />
         
-        <View style={styles.row}>
+        <View>
           <Input
-            style={styles.halfInput}
+            style={styles.Input}
             placeholder="판매가 *"
             value={formData.price}
             onChangeText={(text: string) => setFormData({ ...formData, price: text })}
             keyboardType="numeric"
           />
           <Input
-            style={styles.halfInput}
             placeholder="원래가 (선택)"
             value={formData.originalPrice}
             onChangeText={(text: string) => setFormData({ ...formData, originalPrice: text })}
@@ -157,6 +157,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({ onSubmit, onCanc
         <Text style={styles.sectionTitle}>위치 및 태그</Text>
         
         <Input
+          style={styles.Input}
           placeholder="거래 지역 (예: 서울 강남구) *"
           value={formData.location}
           onChangeText={(text: string) => setFormData({ ...formData, location: text })}
@@ -255,8 +256,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
   },
-  halfInput: {
-    flex: 1,
+  Input: {
+    marginBottom: 12,
   },
   textArea: {
     height: 120,
