@@ -90,19 +90,17 @@ export default function App() {
 
   // 좋아요 토글 처리
   const toggleLike = (itemId: string) => {
-    const newLikedItems = new Set(likedItems);
-    if (newLikedItems.has(itemId)) {
-      newLikedItems.delete(itemId);
-      setItems(items.map(item => 
-        item.id === itemId ? { ...item, likes: Math.max(0, item.likes - 1) } : item
-      ));
-    } else {
-      newLikedItems.add(itemId);
-      setItems(items.map(item => 
-        item.id === itemId ? { ...item, likes: item.likes + 1 } : item
-      ));
-    }
-    setLikedItems(newLikedItems);
+    setLikedItems(prev => {
+      if (prev.has(itemId)) {
+        // 좋아요 취소
+        const newSet = new Set(prev);
+        newSet.delete(itemId);
+        return newSet;
+      } else {
+        // 좋아요 추가
+        return new Set([...prev, itemId]);
+      }
+    });
   };
 
   // 상품 등록 폼 화면
@@ -130,6 +128,7 @@ export default function App() {
           onDelete={deleteItem}
           onLike={toggleLike}
           onChat={handleChat}
+          likedItems={likedItems}
         />
       </SafeAreaView>
     );
@@ -198,6 +197,7 @@ export default function App() {
               item={item}
               onPress={handleItemPress}
               onLike={toggleLike}
+              isLiked={likedItems.has(item.id)}
             />
           ))
         )}

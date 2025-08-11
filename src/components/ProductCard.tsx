@@ -7,12 +7,14 @@ interface ProductCardProps {
   item: Item;
   onPress: (item: Item) => void;
   onLike: (itemId: string) => void;
+  isLiked?: boolean;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   item, 
   onPress, 
-  onLike
+  onLike,
+  isLiked = false
 }) => {
   return (
     <TouchableOpacity 
@@ -44,10 +46,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         
         {/* 좋아요 버튼 */}
         <TouchableOpacity 
-          style={styles.likeButton}
+          style={[styles.likeButton]}
           onPress={() => onLike(item.id)}
         >
-          <Text style={styles.likeIcon}>♥</Text>
+          <Text style={[
+            styles.likeIcon,
+            isLiked && styles.likeIconActive
+          ]}>
+            {isLiked ? '❤️' : '🤍'}
+          </Text>
         </TouchableOpacity>
       </View>
       
@@ -143,8 +150,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   likeIcon: {
-    color: '#ef4444',
+    color: '#9ca3af',
     fontSize: 16,
+  },
+  likeIconActive: {
+    color: '#fff',
   },
   content: {
     padding: 16,

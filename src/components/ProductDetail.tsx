@@ -18,6 +18,7 @@ interface ProductDetailProps {
   onDelete: (itemId: string) => void;
   onLike: (itemId: string) => void;
   onChat: (item: Item) => void;
+  likedItems: Set<string>;
 }
 
 export const ProductDetail: React.FC<ProductDetailProps> = ({
@@ -27,6 +28,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
   onDelete,
   onLike,
   onChat,
+  likedItems,
 }) => {
   const handleDelete = () => {
     Alert.alert(
@@ -136,7 +138,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
       {/* 액션 버튼 */}
       <View style={styles.actionContainer}>
         <Button
-          title="❤️ 좋아요"
+          title={likedItems.has(item.id) ? "❤️ 좋아요" : "🤍 좋아요"}
           onPress={() => onLike(item.id)}
           variant="outline"
           size="large"
